@@ -1,0 +1,258 @@
+/* Да се дефинира апстрктна класа Number со следните чисто виртуелни методи:
+
+double doubleValue() -ја враќа децималната вредност на даден број
+int intValue()- ја враќа целобројната вредност на даден број
+void print() - печати информации за бројот. (1 поен)
+Од оваа класа да се изведат две класи:
+
+Integer (во која што се чува еден број од тип int)
+Double (во која што се чува еден број од тип double) (1 поен).
+За двете изведени класи да се имплементираaт соодветен конструктори, како и да се препокријат методите од основната класа. (1 поени)
+
+Да се преоптовари операторот == којшто ќе споредува два броеви според нивната вредност (објекти од класа Number) (1 поен)
+
+Дополнително да се дефинира класа Numbers во која што ќе се чуваат:
+
+динамички алоцирана низа од покажувачи кон објекти од класата Number
+број на елементи во низата од покажувачи
+За класата да се имплементира соодветен конструктор (default) , како и: (1 поени)
+
+операторот += за додавање на броеви во низата од броеви (1 поен)
+Бројот се додава ако и само ако сите броеви што се веќе додадени во низата се различни од него
+функција void statistics() која што печати информации за броевите во низата: (2 поени)
+Count of numbers: [број на броеви во низата
+
+Sum of all numbers: [сума на сите броеви во низата]
+
+Count of integer numbers: [број на цели броеви (Integer)]
+
+Sum of integer numbers: [сума на сите цели броеви (Integer)]
+
+Count of double numbers: [број на децимални броеви (Double)]
+
+Sum of double numbers: [сума на сите децимални броеви (Double)]
+
+функција void integersLessThan (Integer n) која што ги печати сите цели броеви помали од бројот n (1 поен)
+функција void doublesBiggerThan (Double n) која што ги печати сите децимални броеви поголеми од бројот n (1 поен) */
+
+
+#include<iostream>
+
+using namespace std;
+
+class Number {
+public:
+    virtual double doubleValue() = 0;
+
+    virtual int intValue() = 0;
+
+    virtual void print() = 0;
+
+    bool operator==(Number &other) {
+        if (doubleValue() == other.doubleValue()) {
+            return true;
+        }
+        return false;
+    }
+};
+
+
+class Integer : public Number {
+private:
+    int number;
+
+public:
+    Integer(int number = 0) {
+        this->number = number;
+    }
+
+    double doubleValue() {
+        return this->number * 1.0;
+    }
+
+    int intValue() {
+        return this->number;
+    }
+
+    void print() {
+        cout << "Integer: " << number << endl;
+    }
+};
+
+class Double : public Number {
+private:
+    double doubleNumber;
+
+public:
+
+    Double(double number = 0) {
+        this->doubleNumber = number;
+    }
+
+    double doubleValue() {
+        return this->doubleNumber * 1.0;
+    }
+
+    int intValue() {
+        return this->doubleNumber;
+    }
+
+    void print() {
+        cout << "Double: " << doubleNumber << endl;
+    }
+};
+
+class Numbers {
+private:
+    Number **numbers;
+    int count;
+
+public:
+    Numbers(int count = 0) {
+        this->count = 0;
+        this->numbers = new Number *[count];
+    }
+
+    Numbers(Numbers &other) {
+        this->count = other.count;
+        this->numbers = new Number *[other.count];
+        for (int i = 0; i < other.count; i++) {
+            this->numbers[i] = other.numbers[i];
+        }
+    }
+
+    Numbers &operator=(Numbers &other) {
+        if (this != &other) {
+            this->count = other.count;
+            this->numbers = new Number *[other.count];
+            for (int i = 0; i < other.count; i++) {
+                this->numbers[i] = other.numbers[i];
+            }
+        }
+        return *this;
+    }
+
+    ~Numbers() {
+        delete[] numbers;
+    }
+
+    Numbers &operator+=(Number *n) {
+        Number **tmp = new Number *[count + 1];
+        bool flag = true;
+        for (int i = 0; i < count; i++) {
+            tmp[i] = numbers[i];
+
+            if (n->doubleValue() == numbers[i]->doubleValue()) {
+                flag = false;
+            }
+        }
+
+        if (flag) {
+            tmp[count++] = n;
+            delete[] numbers;
+            numbers = tmp;
+        }
+
+        return *this;
+    }
+
+    void statistics() {
+        double totalSum = 0;
+        int numberOfInts = 0;
+        int numberOfDoubles = 0;
+        int sumOfInts = 0;
+        double sumOfDoubles = 0;
+        for (int i = 0; i < count; i++) {
+            totalSum += numbers[i]->doubleValue();
+            Integer *intPtr = dynamic_cast<Integer *>(numbers[i]);
+
+            if (intPtr != 0) {
+                numberOfInts++;
+                sumOfInts += numbers[i]->intValue();
+            }
+
+            Double *doublePtr = dynamic_cast<Double *>(numbers[i]);
+            if (doublePtr != 0) {
+                numberOfDoubles++;
+                sumOfDoubles += numbers[i]->doubleValue();
+            }
+        }
+
+
+        cout << "Count of numbers: " << count << endl;
+        cout << "Sum of all numbers: " << totalSum << endl;
+        cout << "Count of integer numbers: " << numberOfInts << endl;
+        cout << "Sum of integer numbers: " << sumOfInts << endl;
+        cout << "Count of double numbers: " << numberOfDoubles << endl;
+        cout << "Sum of double numbers: " << sumOfDoubles << endl;
+
+
+    }
+
+    void integersLessThan(Integer n) {
+        int tmpcount = 0;
+
+        for (int i = 0; i < count; i++) {
+            Integer *intPtr = dynamic_cast<Integer *>(numbers[i]);
+            if (intPtr != 0 && numbers[i]->intValue() < n.intValue()) {
+                tmpcount++;
+                numbers[i]->print();
+            }
+        }
+        if (tmpcount == 0) {
+            cout << "None" << endl;
+        }
+
+    }
+
+    void doublesBiggerThan(Double n) {
+        int tmpcount = 0;
+        for (int i = 0; i < count; i++) {
+
+            Double *doublePtr = dynamic_cast<Double *>(numbers[i]);
+            if (doublePtr != 0 && numbers[i]->doubleValue() > n.doubleValue()) {
+                tmpcount++;
+                numbers[i]->print();
+            }
+        }
+
+        if (tmpcount == 0) {
+            cout << "None" << endl;
+        }
+    }
+};
+
+int main() {
+
+    int n;
+    cin >> n;
+    Numbers numbers;
+    for (int i = 0; i < n; i++) {
+        int type;
+        double number;
+        cin >> type >> number;
+        if (type == 0) {//Integer object
+            Integer *integer = new Integer((int) number);
+            numbers += integer;
+        } else {
+            Double *doublee = new Double(number);
+            numbers += doublee;
+        }
+    }
+
+    int lessThan;
+    double biggerThan;
+
+    cin >> lessThan;
+    cin >> biggerThan;
+
+    cout << "STATISTICS FOR THE NUMBERS\n";
+
+    numbers.statistics();
+    cout << "INTEGER NUMBERS LESS THAN " << lessThan << endl;
+    numbers.integersLessThan(Integer(lessThan));
+    cout << "DOUBLE NUMBERS BIGGER THAN " << biggerThan << endl;
+    numbers.doublesBiggerThan(Double(biggerThan));
+
+    return 0;
+}
