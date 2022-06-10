@@ -1,0 +1,118 @@
+* {
+  box-sizing: border-box;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.header {
+  padding: 0px 30px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.green {
+  color: #80dc94;
+}
+
+.cblue {
+  color: #8a2bfa;
+}
+
+.menu ul {
+  display: flex;
+}
+
+.menu ul li {
+  color: lightslategrey;
+  list-style-type: none;
+}
+
+.menu ul li a {
+  font-size: large;
+  padding: 15px 40px;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+.current {
+  background-color: lightslategrey;
+  color: white;
+}
+
+.content-wrapper {
+  background-color: #80dc94;
+  height: 90vh;
+}
+
+table {
+  width: 95%;
+
+  text-align: center;
+  margin: 0 auto;
+  border-collapse: collapse;
+}
+
+caption {
+  padding-top: 60px;
+}
+
+th,
+td {
+  border: 1px solid black;
+}
+
+h2 {
+  font-size: 16;
+  padding: 30px 0 10px 0;
+  text-align: center;
+}
+
+form {
+  margin: 0 30px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(218, 206, 206);
+}
+
+label,
+input,
+select,
+textarea {
+  padding: 10px;
+}
+
+.form-content-wrapper {
+  display: flex;
+}
+
+.field-inner {
+  border: none;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+}
+
+.textarea {
+  height: 200px;
+}
+
+.submit {
+  border: none;
+  border-radius: 5px;
+  background-color: #1c6b1a;
+  color: white;
+  width: 30%;
+  margin: 12px auto;
+  padding: 10px 100px;
+}
+
+.container {
+  margin: 0 auto;
+  width: 95%;
+  display: flex;
+  flex-direction: column;
+}
+
+iframe {
+  height: 500px;
+}

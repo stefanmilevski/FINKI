@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./main.css" />
+    <title>Contact</title>
+  </head>
+  <body>
+    <div class="header">
+      <div class="title">
+        <h1>Finki<span class="green">Page</span></h1>
+      </div>
+      <div class="menu">
+        <ul>
+          <li><a href="Home.html">Home</a></li>
+          <li><a class="current" href="contact.html">Contact</a></li>
+          <li><a href="info.html">Info</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="content-wrapper">
+      <div class="content">
+        <h2>Contact Form</h2>
+        <form>
+          <div class="form-content-wrapper">
+            <fieldset class="field-inner">
+              <label for="">First Name</label>
+              <input type="text" placeholder="Your name.." />
+              <label for="">Date of Birth</label>
+              <input type="date" id="date" name="dateofbirth" />
+              <label for="">Country</label>
+              <select>
+                <option value="Afghanistan">Afghanistan</option>
+                <option value="Albania">Albania</option>
+                <option value="Algeria">Algeria</option>
+                <option value="American Samoa">American Samoa</option>
+                <option value="Andorra">Andorra</option>
+                <option value="Angola">Angola</option>
+                <option value="Anguilla">Anguilla</option>
+                <option value="Antartica">Antarctica</option>
+                <option value="Antigua and Barbuda">Antigua and Barbuda</option>
+                <option value="Argentina">Argentina</option>
+              </select>
+              <label for="file"
+                >CV <input type="file" id="real-file" hidden="hidden" />
+                <button type="button" id="button">Choose File</button>
+                <span id="custom-text">No file chosen</span>
+              </label>
+            </fieldset>
+
+            <fieldset class="field-inner">
+              <label for="lname">Last Name</label>
+              <input
+                type="text"
+                id="lname"
+                name="fname"
+                placeholder="Your last name.."
+              />
+              <label for="subject">Subject</label>
+              <textarea
+                class="textarea"
+                id="subject"
+                name="subject"
+                placeholder="Write something.."
+              ></textarea>
+            </fieldset>
+          </div>
+
+          <input class="submit" type="submit" />
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
